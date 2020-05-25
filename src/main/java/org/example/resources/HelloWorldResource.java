@@ -3,13 +3,9 @@ package org.example.resources;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("helloworld")
 public class HelloWorldResource {
-
-    private List<Student> students;
 
     @GET
     public String getHelloWorld() { return "Hallo"; }
@@ -33,16 +29,6 @@ public class HelloWorldResource {
         return Response.serverError().entity("Something went terribly wrong!").build();
     }
 
-    @POST
-    @Path("/post")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Student post(Student student) {
-        if (students == null) {
-            students = new ArrayList<>();
-        }
-        students.add(student);
-        System.out.println("students.size()=" + students.size());
-        return student;
-    }
+
 
 }
