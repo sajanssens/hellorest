@@ -35,6 +35,7 @@ public class HelloWorldResource {
 
     @POST
     @Path("/post")
+    @Produces(MediaType.APPLICATION_JSON)
     public Student post(Student student) {
         if (students == null) {
             students = new ArrayList<>();
