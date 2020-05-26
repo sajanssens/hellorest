@@ -13,6 +13,7 @@ import java.util.Set;
 @ApplicationPath("resources")
 public class App extends Application {
 
+    // for swagger
     public Set<Class<?>> getClasses() {
         return new HashSet<>(Arrays.asList(
                 StudentsResource.class,
