@@ -4,16 +4,16 @@ import org.example.domain.Student;
 import org.example.domain.Students;
 
 import javax.ejb.Stateful;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.example.domain.Values.STUDENTS;
 
-@Stateful
-public class StudentService {
+@Stateful(passivationCapable = true)
+public class StudentService implements Serializable {
 
-    private List<Student> students = new ArrayList<>(STUDENTS); // stateless....
+    List<Student> students = new ArrayList<>();
 
     public Student get(int id) {
         return students.get(id);
@@ -37,11 +37,7 @@ public class StudentService {
         return Students.of(filterStudentsBy(lastname));
     }
 
-    public Student add(Student student) {
-        if (students.add(student)) {
-            return student;
-        } else {
-            throw new RuntimeException("Add failed....");
-        }
+    public boolean add(Student student) {
+        return students.add(student);
     }
 }

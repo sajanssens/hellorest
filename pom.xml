@@ -24,28 +24,83 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.phillip-kruger</groupId>
+            <artifactId>apiee-core</artifactId>
+            <version>1.0.8</version>
         </dependency>
     </dependencies>
 
-    <!--<build>
-        <finalName>${project.artifactId}</finalName>
+    <!-- To run admincenter use the following commands in the application directory: -->
+    <!-- mvn liberty:create-server creates the server -->
+    <!-- mvn liberty:install-feature -->
+    <!-- mvn liberty:start -->
+    <!-- Navigate to http://localhost:9080/adminCenter/ -->
+    <!-- ... -->
+
+    <!-- To generate and view swagger-ui:
+         Package and deploy the war and start the appserver.
+         Navigate to http://localhost:9080/JAXRSBasic/resources/apiee/
+     -->
+    <build>
         <plugins>
-            &lt;!&ndash; To run on new Java versions &ndash;&gt;
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+            <!--<plugin>
+                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
                 <configuration>
-                    <target>8</target>
-                    <source>8</source>
+                    &lt;!&ndash; Liberty server to run test against &ndash;&gt;
+                    &lt;!&ndash; Use IBM's liberty in this case, since this one contains the adminCenter, to demonstrate. &ndash;&gt;
+                    <assemblyArtifact>
+                        <groupId>com.ibm.websphere.appserver.runtime</groupId>
+                        <artifactId>wlp-javaee7</artifactId>
+                        <version>19.0.0.9</version>
+                        <type>zip</type>
+                    </assemblyArtifact>
                 </configuration>
-            </plugin>
+                <executions>
+                    <execution>
+                        <id>install-feature</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>install-feature</goal>
+                        </goals>
+                        <configuration>
+                            <features>
+                                <acceptLicense>true</acceptLicense>
+                                <feature>adminCenter-1.0</feature>
+                            </features>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <!-- <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-dependency-plugin</artifactId>
+                 <version>3.1.1</version>
+                 <configuration>
+                     <artifactItems>
+                         <artifactItem>
+                             <groupId>com.github.phillip-kruger</groupId>
+                             <artifactId>apiee-core</artifactId>
+                             <version>1.0.8</version>
+                             <type>jar</type>
+                             <overWrite>false</overWrite>
+                             <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources
+                             </outputDirectory>
+                             <destFileName>apiee.jar</destFileName>
+                         </artifactItem>
+                     </artifactItems>
+                 </configuration>
+             </plugin>-->
         </plugins>
-    </build>-->
+    </build>
 
 </project>

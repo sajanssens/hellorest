@@ -1,5 +1,7 @@
 package org.example.resources;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.example.domain.Student;
 import org.example.domain.Students;
 import org.example.services.StudentService;
@@ -8,11 +10,19 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Path("students")
+@Api("students")
 @Produces(MediaType.APPLICATION_JSON)
 @SessionScoped
-public class StudentsResource {
+public class StudentsResource implements Serializable {
+
+    List<Student> students = new ArrayList<>();
 
     @Inject
     private StudentService studentService;
@@ -22,9 +32,10 @@ public class StudentsResource {
         return studentService.get(id);
     }
 
+    @ApiOperation("Haal studenten op op basis van hun achternaam (volledig).")
     @GET @Path("q") // read
-    public Students get(@QueryParam("lastname") String lastname) {
-        return studentService.find(lastname);
+    public List<Student> get(@QueryParam("lastname") String lastname) {
+        return filterStudentsBy(lastname);
     }
 
     @GET // read
@@ -36,9 +47,18 @@ public class StudentsResource {
         return studentService.remove(id);
     }
 
-    @POST // create
-    @Produces(MediaType.APPLICATION_JSON)
+    @POST
     public Student post(Student student) {
-        return studentService.add(student);
+        // students.add(student); // doesn't make sense; rest is stateless
+        if (studentService.add(student)) {
+            return student;
+        }
+        throw new RuntimeException("Student not added.");
+    }
+
+    private List<Student> filterStudentsBy(@QueryParam("lastname") String lastname) {
+        return students.stream()
+                .filter(s -> lastname.equals(s.getLastname()))
+                .collect(toList());
     }
 }
