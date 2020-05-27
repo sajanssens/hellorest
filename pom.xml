@@ -14,8 +14,9 @@
         <!-- add to fix this error: Failed to execute goal org.apache.maven.plugins:maven-war-plugin:2.2:war (default-war) on project rest: Error assembling WAR: webxml attribute is required (or pre-existing WEB-INF/web.xml if executing in update mode) -->
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
     </properties>
 
     <!--0.-->
@@ -24,7 +25,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId> <!-- bom Bill of Material-->
-                <version>1.4.0.Final</version>
+                <version>1.5.0.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -33,13 +34,13 @@
 
     <dependencies>
         <!-- use this when using java 9+ : -->
-        <dependency>
-            <groupId>com.sun</groupId>
-            <artifactId>tools</artifactId>
-            <version>1.6.0</version>
-            <scope>system</scope>
-            <systemPath>C:/Program Files/Java/jdk8u222-b10/lib/tools.jar</systemPath>
-        </dependency>
+        <!-- <dependency>
+             <groupId>com.sun</groupId>
+             <artifactId>tools</artifactId>
+             <version>1.6.0</version>
+             <scope>system</scope>
+             <systemPath>C:/Program Files/Java/jdk8u222-b10/lib/tools.jar</systemPath>
+         </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -55,14 +56,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
-            <scope>provided</scope>
+            <version>1.18.10</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.phillip-kruger</groupId>
-            <artifactId>apiee-core</artifactId>
-            <version>1.0.8</version>
-        </dependency>
+        <!-- <dependency>
+             <groupId>com.github.phillip-kruger</groupId>
+             <artifactId>apiee-core</artifactId>
+             <version>1.0.8</version>
+         </dependency>-->
 
         <!-- 1. Arquillian JUnit integration framework (required at all times) -->
         <dependency>
@@ -76,6 +76,12 @@
             <groupId>io.openliberty.arquillian</groupId>
             <artifactId>arquillian-liberty-managed</artifactId>
             <version>1.0.6</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -95,7 +101,17 @@
                   ie http://localhost:9080/hellorest/<apppath>/apiee/
      -->
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
+            <!-- To run on new Java versions -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
             <!-- Run and verify ...IT.java-tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

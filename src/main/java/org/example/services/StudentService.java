@@ -4,14 +4,13 @@ import org.example.domain.Student;
 import org.example.domain.Students;
 
 import javax.ejb.Stateful;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
 @Stateful(passivationCapable = true)
-public class StudentService implements Serializable {
+public class StudentService /*implements Serializable*/ {
 
     List<Student> students = new ArrayList<>();
 
