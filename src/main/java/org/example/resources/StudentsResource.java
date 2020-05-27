@@ -14,6 +14,11 @@ public class StudentsResource {
     @Inject
     private StudentService studentService;
 
+    @POST // create
+    public Student post(Student student) {
+        return studentService.add(student);
+    }
+
     @GET @Path("{id}") // read
     public Student get(@PathParam("id") int id) {
         return studentService.get(id);
@@ -31,14 +36,6 @@ public class StudentsResource {
     @Path("{id}")
     public Student delete(@PathParam("id") int id) {
         return studentService.remove(id);
-    }
-
-    @POST
-    public Student post(Student student) {
-        if (studentService.add(student)) {
-            return student;
-        }
-        throw new RuntimeException("Student not added.");
     }
 
 }
