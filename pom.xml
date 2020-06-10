@@ -14,9 +14,9 @@
         <!-- add to fix this error: Failed to execute goal org.apache.maven.plugins:maven-war-plugin:2.2:war (default-war) on project rest: Error assembling WAR: webxml attribute is required (or pre-existing WEB-INF/web.xml if executing in update mode) -->
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.release>8</maven.compiler.release>
     </properties>
 
     <!--0.-->
@@ -57,6 +57,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
+            <scope>provided</scope>
         </dependency>
         <!-- <dependency>
              <groupId>com.github.phillip-kruger</groupId>
@@ -91,6 +92,7 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>2.11.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- JPA ******************************************** -->
@@ -103,11 +105,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.4.14.Final</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.19</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
@@ -152,10 +156,10 @@
                         <version>19.0.0.10</version>
                         <type>zip</type>
                     </assemblyArtifact>
-                    <configFile>src/test/resources/server.xml</configFile> <!-- Used to run Arquillian-->
+                    <configFile>src/test/resources/test-server.xml</configFile> <!-- Used to run Arquillian-->
                 </configuration>
                 <executions>
-                    <!-- Create server during package phase for running the application AND Arquillian -->
+                    <!-- Create server for running the application AND Arquillian -->
                     <execution>
                         <phase>pre-integration-test</phase>
                         <goals>
