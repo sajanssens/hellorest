@@ -12,7 +12,8 @@
         <jdbcDriver javax.sql.XADataSource="com.mysql.cj.jdbc.MysqlXADataSource" libraryRef="MySQLLib"/>
         <properties databaseName="hellorest"
                     user="root" password="root"
-                    portNumber="3306" serverName="localhost" useSSL="false" allowPublicKeyRetrieval="true"/>
+                    portNumber="3306" serverName="localhost"
+                    useSSL="false" allowPublicKeyRetrieval="true" serverTimezone="UTC"/>
     </dataSource>
     <library id="MySQLLib">
         <fileset dir="${wlp.install.dir}/usr/shared/resources" includes="mysql.jar"/>

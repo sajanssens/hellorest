@@ -15,9 +15,7 @@ public class StudentsResource {
     private StudentService studentService;
 
     @POST // create
-    public Student post(Student student) {
-        return studentService.add(student);
-    }
+    public Student post(Student student) { return studentService.add(student); }
 
     @GET @Path("{id}") // read
     public Student get(@PathParam("id") int id) {
