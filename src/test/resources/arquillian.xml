@@ -6,6 +6,9 @@
     <container qualifier="wlp" default="true">
         <configuration>
             <property name="wlpHome">target/liberty/wlp</property>
+            <property name="serverStartTimeout">120</property>
+            <property name="appDeployTimeout">120</property>
+            <property name="appUndeployTimeout">120</property>
         </configuration>
     </container>
 </arquillian>
