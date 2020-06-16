@@ -33,14 +33,14 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- use this when using java 9+ : -->
-        <!-- <dependency>
-             <groupId>com.sun</groupId>
-             <artifactId>tools</artifactId>
-             <version>1.6.0</version>
-             <scope>system</scope>
-             <systemPath>C:/Program Files/Java/jdk8u222-b10/lib/tools.jar</systemPath>
-         </dependency>-->
+        <!-- use this when com.sun... classes not found : -->
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <version>1.6.0</version>
+            <scope>system</scope>
+            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
